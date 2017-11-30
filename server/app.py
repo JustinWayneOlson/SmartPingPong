@@ -3,7 +3,7 @@ import tornado.web
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('../client/index.html')
+        self.render('../public/index.html')
 
 def make_app():
     return tornado.web.Application([
