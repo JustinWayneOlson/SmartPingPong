@@ -3,7 +3,9 @@
 ## Installation (Mac OS)
 
 Install python-pip
-`sudo easy-install pip`
+
+    sudo easy-install pip
 
 Install python-tornado
-`sudo pip install tornado`
+
+    sudo pip install tornado
