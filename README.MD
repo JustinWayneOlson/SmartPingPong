@@ -4,7 +4,7 @@
 
 Install python-pip
 
-    sudo easy-install pip
+    sudo easy_install pip
 
 Install python-tornado
 
