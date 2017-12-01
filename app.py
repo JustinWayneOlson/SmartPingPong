@@ -15,7 +15,15 @@ class Application(tornado.web.Application):
         routes = [
             (r"/", handlers.MainHandler),
             (r'/auth/login', handlers.GoogleOAuth2LoginHandler),
+            (r'/getScore/([^\/]*)/(.*)', handlers.GetScoreHandler),
             (r'/updateScore', handlers.UpdateScoreHandler),
+            (r'/updateTeam', handlers.UpdateTeamHandler),
+            (r'/getTeam/(.*)', handlers.GetTeamHandler),
+            (r'/updateMatch', handlers.UpdateMatchHandler),
+            (r'/getMatch/(.*)', handlers.GetMatchHandler),
+            (r'/updateGame', handlers.UpdateGameHandler),
+            (r'/getGame/(.*)', handlers.GetGameHandler),
+            (r'/resetGame', handlers.ResetGameHandler),
             (r'/static/js/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/js"},),
             (r'/static/css/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/css"},),
             (r'/static/media/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/media"},)
