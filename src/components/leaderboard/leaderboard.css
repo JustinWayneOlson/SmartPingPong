@@ -6,6 +6,60 @@
 
   display: flex;
   flex: 0 0 auto;
+  flex-direction: column;
+}
+
+.Leaderboard > .singles-or-doubles {
+  display: flex;
   flex-direction: row;
-  padding-left: 10px;
+  border-bottom: 1px solid #00a1dd;
+  box-sizing: border-box;
+}
+
+.Leaderboard > .singles-or-doubles > .tab {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  transition: background-color 80ms ease;
+  cursor: pointer;
+  color: #00a1dd;
+}
+
+.Leaderboard > .singles-or-doubles > .tab.active {
+  background-color: #00a1dd;
+  color: white;
+}
+
+.Leaderboard .leaderboard-tab {
+  height: 100%;
+}
+
+.Leaderboard .leaderboard-tab.singles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: baseline;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #333333;
+  border-radius: 50%;
+}
+
+.Leaderboard .leaderboard-tab.doubles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: baseline;
+}
+
+.team-avatars {
+  display: flex;
+  flex-direction: row;
 }
