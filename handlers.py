@@ -53,6 +53,62 @@ class UpdateScoreHandler(tornado.web.RequestHandler):
             "response": "success"
         })
 
+class GetScoreHandler(tornado.web.RequestHandler):
+    def get(self, match, game):
+        score = {"1": 11, "2": 21}
+        self.write({
+            "response": score
+        })
+
+class UpdateTeamHandler(tornado.web.RequestHandler):
+    def post(self):
+        body = json_decode(self.request.body)
+        self.write({
+            "reponse": "success"
+        })
+
+class GetTeamHandler(tornado.web.RequestHandler):
+    def get(self, id):
+        team = {"id": id, "name": "Workday Super Owls", "players": ["Jace", "Justin"], "wins": 4, "losses": 0, "rating": 2312, "history": [2, 14, 32, 66]}
+        self.write({
+            "response": team
+        })
+
+class UpdateMatchHandler(tornado.web.RequestHandler):
+    def post(self):
+        body = json_decode(self.request.body)
+        self.write({
+            "reponse": "success"
+        })
+
+class GetMatchHandler(tornado.web.RequestHandler):
+    def get(self, id):
+        match = {"id": id, "games": [8, 9, 10], "matchScore": "2-1", "winners": [1, 14], "date": "December 1, 2017"}
+        self.write({
+            "response": match
+        })
+
+class UpdateGameHandler(tornado.web.RequestHandler):
+    def post(self):
+        body = json_decode(self.request.body)
+        self.write({
+            "reponse": "success"
+        })
+
+class GetGameHandler(tornado.web.RequestHandler):
+    def get(self, id):
+        game = {"id": id, "players": {"1": [1, 2], "2": [10, 14]}, "scores": {"1": 21, "2": 14}, "winners": [1, 2]}
+        self.write({
+            "response": match
+        })
+
+class ResetGameHandler(tornado.web.RequestHandler):
+    def post(self):
+        body = json_decode(self.request.body)
+        self.write({
+            "reponse": "success"
+        })
+
 class GoogleOAuth2LoginHandler(tornado.web.RequestHandler, tornado.auth.GoogleOAuth2Mixin):
     @tornado.gen.coroutine
     def get(self):
