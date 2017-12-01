@@ -1,4 +1,5 @@
 import tornado.web
+import json
 
 class MainHandler(tornado.web.RequestHandler):
     # serves index.html
@@ -14,9 +15,10 @@ class UpdateScoreHandler(tornado.web.RequestHandler):
     # }
     # returns {response: "success"}
     def post(self):
-        body = json_decode(self.request.body)
+        body = json.loads(self.request.body)
+        print "fjkdlsajfkldsa"
         print body
         # TODO update score in firebase
         self.write({
-            response: "success"
+            "response": "success"
         })
