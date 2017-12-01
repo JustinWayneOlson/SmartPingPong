@@ -25,14 +25,7 @@ class UpdateScoreHandler(tornado.web.RequestHandler):
     # }
     # returns {response: "success"}
     def post(self):
-<<<<<<< HEAD
-        body = json.loads(self.request.body)
-        print "fjkdlsajfkldsa"
-        print body
-        # TODO update score in firebase
-=======
         body = json_decode(self.request.body)
->>>>>>> 902a340... fucking works
         self.write({
             "response": "success"
         })

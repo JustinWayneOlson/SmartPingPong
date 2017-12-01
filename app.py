@@ -8,7 +8,6 @@ def make_app():
 
     routes = [
         (r"/", handlers.MainHandler),
-        (r"/user/(.*)"
         (r'/auth/login', handlers.GoogleOAuth2LoginHandler),
         (r'/updateScore', handlers.UpdateScoreHandler),
         (r'/static/js/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/js"},),
