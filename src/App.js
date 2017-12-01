@@ -11,8 +11,26 @@ import './App.css'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {modalOpen:false}
-    this.state = {userRegistered:false}
+    this.state = { modalOpen: false, userRegistered: false}
+  }
+  componentDidMount(){
+    fetch('https://localhost:8888/isUserRegistered/12',
+    {
+      method: "GET",
+      header: {
+        "Content-Type": "application/json",
+        'Access-Control-Allow-Origin':'*'
+      }
+    }).then((res) => {
+      res.json().then((response) => {
+        this.setState((prevState, props) => {
+          console.log(response)
+          return {userRegistered: response.response}
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+    })
   }
   render() {
     return(
@@ -30,10 +48,8 @@ class App extends Component {
         <div className="leaderboard-and-stats">
           <Leaderboard/>
           {
-            this.state.userRegistered === true ? <Stats/> : <Registration/>
+            this.state.userRegistered === "true" ? <Stats/> : <Registration/>
           }
-          {/* }<Stats/> */}
-          {/* <Registration/> */}
         </div>
       </div>
     )

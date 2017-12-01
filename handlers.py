@@ -23,12 +23,18 @@ def registerUser(db, user):
     users.insert(newUser)
 
 class BaseHandler(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "Content-Type")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
     def get_current_user(self):
         return self.get_secure_cookie("user")
 
 class MainHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
+        print self.current_user
         if not self.current_user:
             self.redirect('/auth/login')
             return
@@ -38,6 +44,15 @@ class MainHandler(BaseHandler):
         else:
             print "already registered!"
         self.render('./build/index.html')
+
+class IsUserRegisteredHandler(BaseHandler):
+    def get(self, user_id):
+        self.set_default_headers()
+        print self.get_current_user()
+        if int(user_id)%2 == 0:
+            self.write({"response":"true"})
+        else:
+            self.write({"response":"false"})
 
 class UpdateScoreHandler(tornado.web.RequestHandler):
     # POST endpoint
@@ -118,6 +133,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler, tornado.auth.GoogleOA
                 code=self.get_argument('code'))
             user = yield self.oauth2_request("https://www.googleapis.com/oauth2/v1/userinfo", access_token=access["access_token"])
             self.set_secure_cookie('user', json.dumps(user))
+            print self.get_secure_cookie('user')
             self.redirect('/')
         else:
             yield self.authorize_redirect(

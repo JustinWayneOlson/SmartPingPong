@@ -15,18 +15,19 @@ class Application(tornado.web.Application):
         routes = [
             (r"/", handlers.MainHandler),
             (r'/auth/login', handlers.GoogleOAuth2LoginHandler),
-            (r'/getScore/([^\/]*)/(.*)', handlers.GetScoreHandler),
-            (r'/updateScore', handlers.UpdateScoreHandler),
-            (r'/updateTeam', handlers.UpdateTeamHandler),
-            (r'/getTeam/(.*)', handlers.GetTeamHandler),
-            (r'/updateMatch', handlers.UpdateMatchHandler),
-            (r'/getMatch/(.*)', handlers.GetMatchHandler),
-            (r'/updateGame', handlers.UpdateGameHandler),
+            (r'/isUserRegistered/(.*)', handlers.IsUserRegisteredHandler),
             (r'/getGame/(.*)', handlers.GetGameHandler),
+            (r'/getMatch/(.*)', handlers.GetMatchHandler),
+            (r'/getScore/([^\/]*)/(.*)', handlers.GetScoreHandler),
+            (r'/getTeam/(.*)', handlers.GetTeamHandler),
             (r'/resetGame', handlers.ResetGameHandler),
-            (r'/static/js/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/js"},),
             (r'/static/css/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/css"},),
-            (r'/static/media/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/media"},)
+            (r'/static/js/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/js"},),
+            (r'/static/media/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/media"},),
+            (r'/updateGame', handlers.UpdateGameHandler),
+            (r'/updateMatch', handlers.UpdateMatchHandler),
+            (r'/updateScore', handlers.UpdateScoreHandler),
+            (r'/updateTeam', handlers.UpdateTeamHandler)
         ]
 
         settings = {
@@ -36,7 +37,7 @@ class Application(tornado.web.Application):
             },
             'redirect_uri': os.environ['REDIRECT_URI'],
             'login_url': 'auth/login',
-            'cookie_secret': os.urandom(32),
+            'cookie_secret': os.urandom(32)
         }
         super(Application, self).__init__(routes, **settings)
 
@@ -58,5 +59,5 @@ if __name__ == "__main__":
     for dir, _, files in os.walk('./'):
         [tornado.autoreload.watch(dir + '/' + f) for f in files if not f.startswith('.')]
 
-    tornado.ioloop.IOLoop.current().start()
     print("Application serving on port 8888")
+    tornado.ioloop.IOLoop.current().start()
