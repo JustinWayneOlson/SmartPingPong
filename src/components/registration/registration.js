@@ -7,10 +7,10 @@ class Registration extends Component {
     return (
       <div className="Registration">
         <h2> Register: </h2>
-        {"Office:"}
+        {"Name:"}
         <input type="text"/>
         <br/>
-        {"Name:"}
+        {"Employee #:"}
         <input type="text"/>
         <br/>
         {"Avatar:"}
