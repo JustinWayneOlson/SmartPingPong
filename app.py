@@ -2,19 +2,12 @@ import tornado.ioloop
 import tornado.autoreload
 import os
 import tornado.web
-
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.render('build/index.html')
-
-class TestEndpointHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write({'response': 'hello'})
+import handlers
 
 def make_app():
     return tornado.web.Application([
-        (r"/", MainHandler),
-        (r'/testEndpoint', TestEndpointHandler),
+        (r"/", handlers.MainHandler),
+        (r'/updateScore', handlers.UpdateScoreHandler),
         (r'/static/js/(.*)',tornado.web.StaticFileHandler, {"path": "./build/static/js"},),
         (r'/static/css/(.*)',tornado.web.StaticFileHandler, {"path": "./build/static/css"},),
         (r'/static/media/(.*)',tornado.web.StaticFileHandler, {"path": "./build/static/media"},)
