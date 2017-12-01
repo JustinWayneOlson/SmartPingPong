@@ -24,6 +24,8 @@ class Application(tornado.web.Application):
             (r'/updateGame', handlers.UpdateGameHandler),
             (r'/getGame/(.*)', handlers.GetGameHandler),
             (r'/resetGame', handlers.ResetGameHandler),
+            # (r'/getGameState/(.*)', handlers.GetGameHandler),
+            # (r'/updateGameState', handlers.ResetGameHandler),
             (r'/static/js/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/js"},),
             (r'/static/css/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/css"},),
             (r'/static/media/(.*)', tornado.web.StaticFileHandler, {"path": "./build/static/media"},)
