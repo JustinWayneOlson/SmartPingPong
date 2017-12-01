@@ -25,7 +25,7 @@ class UpdateScoreHandler(tornado.web.RequestHandler):
     # }
     # returns {response: "success"}
     def post(self):
-        body = json_decode(self.request.body)
+        body = json.loads(self.request.body)
         self.write({
             "response": "success"
         })
