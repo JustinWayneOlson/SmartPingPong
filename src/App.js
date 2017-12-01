@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Navbar from './components/navbar/navbar.js'
 import Scoreboard from './components/scoreboard/scoreboard.js'
 import Modal from './components/modal/modal.js'
+import Stats from './components/stats/stats.js'
+import Leaderboard from './components/leaderboard/leaderboard.js'
 
 import './App.css'
 
@@ -23,7 +25,10 @@ class App extends Component {
             this.setState({ modalOpen: false })
           }}/> : null
         }
-        <h1> Hello World </h1>
+        <div className="leaderboard-and-stats">
+          <Leaderboard/>
+          <Stats/>
+        </div>
       </div>
     )
   }
