@@ -48,66 +48,90 @@ class UpdateScoreHandler(tornado.web.RequestHandler):
     # }
     # returns {response: "success"}
     def post(self):
-        body = json.loads(self.request.body)
+        scoreUpdate = json.loads(self.request.body)
+        #todo save game state (and queue) in memory and fetch scores here
+        score = self.application.db.scores.find_one({"": , "": })
+        score['1'] += scoreUpdate['team1']
+        score['2'] += scoreUpdate['team2']
+        self.application.db.scores.(score)
         self.write({
             "response": "success"
         })
 
 class GetScoreHandler(tornado.web.RequestHandler):
     def get(self, match, game):
-        score = {"1": 11, "2": 21}
+        score = self.application.db.scores.find_one({"match": match, "game": game})
         self.write({
             "response": score
         })
 
 class UpdateTeamHandler(tornado.web.RequestHandler):
     def post(self):
-        body = json_decode(self.request.body)
+        team = json_decode(self.request.body)
+        self.application.db.teams.insert(team)
         self.write({
             "reponse": "success"
         })
 
 class GetTeamHandler(tornado.web.RequestHandler):
     def get(self, id):
-        team = {"id": id, "name": "Workday Super Owls", "players": ["Jace", "Justin"], "wins": 4, "losses": 0, "rating": 2312, "history": [2, 14, 32, 66]}
+        team = self.application.db.teams.find_one({"_id": id})
         self.write({
             "response": team
         })
 
 class UpdateMatchHandler(tornado.web.RequestHandler):
     def post(self):
-        body = json_decode(self.request.body)
+        match = json_decode(self.request.body)
+        self.application.db.matches.insert(match)
         self.write({
             "reponse": "success"
         })
 
 class GetMatchHandler(tornado.web.RequestHandler):
     def get(self, id):
-        match = {"id": id, "games": [8, 9, 10], "matchScore": "2-1", "winners": [1, 14], "date": "December 1, 2017"}
+        match = self.application.db.matches.find_one({"_id": id})
         self.write({
             "response": match
         })
 
 class UpdateGameHandler(tornado.web.RequestHandler):
     def post(self):
-        body = json_decode(self.request.body)
+        game = json_decode(self.request.body)
+        self.application.db.games.insert(game)
         self.write({
             "reponse": "success"
         })
 
 class GetGameHandler(tornado.web.RequestHandler):
     def get(self, id):
-        game = {"id": id, "players": {"1": [1, 2], "2": [10, 14]}, "scores": {"1": 21, "2": 14}, "winners": [1, 2]}
+        game = self.application.db.games.find_one({"_id": id})
         self.write({
-            "response": match
+            "response": game
         })
 
 class ResetGameHandler(tornado.web.RequestHandler):
     def post(self):
         body = json_decode(self.request.body)
+        self.application.db.games.insert(body)
         self.write({
             "reponse": "success"
         })
+
+# class UpdateGameStateHandler(tornado.web.RequestHandler):
+#     def post(self):
+#         newGameState = json_decode(self.request.body)
+#         self.application.db.gameState.find_one_and_update("_id": }, {"$set": newGameState})
+#         self.write({
+#             "reponse": "success"
+#         })
+#
+# class GetGameStateHandler(tornado.web.RequestHandler):
+#     def get(self):
+#         gameState = self.application.db.gameState.find_one()
+#         self.write({
+#             "response": gameState
+#         })
 
 class GoogleOAuth2LoginHandler(tornado.web.RequestHandler, tornado.auth.GoogleOAuth2Mixin):
     @tornado.gen.coroutine
