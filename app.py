@@ -5,7 +5,7 @@ import tornado.web
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('./build/index.html')
+        self.render('build/index.html')
 
 class TestEndpointHandler(tornado.web.RequestHandler):
     def get(self):
