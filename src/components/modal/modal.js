@@ -7,7 +7,8 @@ class Modal extends Component {
   render() {
     return ReactDOM.createPortal(
       (
-        <div className="Backdrop" onClick={this.props.onClose}>
+        <div className="Backdrop-and-modal">
+          <div className="Backdrop" onClick={this.props.onClose}/>
           <div className="Modal">
             <div className="current-queue-container">
               {"Current Queue:"}
