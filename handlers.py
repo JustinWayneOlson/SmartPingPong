@@ -2,6 +2,25 @@ import tornado.web
 import tornado.auth
 import json
 import os
+from pymongo import MongoClient
+from pprint import pprint
+
+def isUserRegistered(db, user_id):
+    user = db.users.find_one({ "_id": user_id })
+    if user:
+        return True
+    else:
+        return False
+
+def registerUser(db, user):
+    newUser = {
+        '_id': user['id'],
+        'name': ''.join([user['given_name'], ' ', user['family_name']]),
+        'avatar': user['picture']
+    }
+    pprint(newUser)
+    users = db['users']
+    users.insert(newUser)
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -14,6 +33,10 @@ class MainHandler(BaseHandler):
             self.redirect('/auth/login')
             return
         username = tornado.escape.xhtml_escape(self.current_user)
+        if not isUserRegistered(self.application.db, json.loads(self.current_user)['id']):
+            registerUser(self.application.db, json.loads(self.current_user))
+        else:
+            print "already registered!"
         self.render('./build/index.html')
 
 class UpdateScoreHandler(tornado.web.RequestHandler):
@@ -39,7 +62,6 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler, tornado.auth.GoogleOA
                 code=self.get_argument('code'))
             user = yield self.oauth2_request("https://www.googleapis.com/oauth2/v1/userinfo", access_token=access["access_token"])
             self.set_secure_cookie('user', json.dumps(user))
-            nextPage = self.get_argument('code')
             self.redirect('/')
         else:
             yield self.authorize_redirect(
