@@ -15,9 +15,19 @@ A Workday Hackathon Project by Jace Conflenti, Andrew Arnopoulos, Luis Olivas, J
 
     sudo easy_install pip
 
-#### Install python-tornado
+#### Install Python Dependencies
 
-    sudo pip install tornado
+- ###### Tornado
+
+      sudo pip install tornado
+
+- ###### Requests
+
+      sudo pip install requests
+
+- ###### Python-Firebase
+
+      sudo pip install python-firebase
 
 #### Spin up Dev Server
 
