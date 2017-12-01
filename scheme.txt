@@ -1,0 +1,46 @@
+  users: {
+    name: string,
+    id: int,
+    auth: string,
+    rfid: string,
+    stats: {
+      singles: {
+        wins: int,
+        losses: int,
+        rank: int,
+        rating: int,
+        history: [matches.id]
+      }
+      teams: [team.id]
+    }
+  }
+
+team: {
+  id: int,
+  name: ?string,
+  players: [users],
+  wins: int,
+  losses: int,
+  rating: int,
+  history: [matches.id]
+}
+
+matches: {
+  id: int
+  games: [game.id]
+  date: datetime
+  winner: [users.id]
+}
+
+game: {
+  id: int,
+  players:{
+    1: [users],
+    2: [users]
+  }
+  scores: {
+    1: int,
+    2: int
+  }
+  winner: [users]
+}
